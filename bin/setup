@@ -1,0 +1,10 @@
+#!/bin/bash
+
+LINUX_FLAG="--linux"
+
+if [ "$1" == "$LINUX_FLAG" ]
+then
+    bin/setup_linux
+else
+    bin/setup_mac
+fi
