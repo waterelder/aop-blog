@@ -2,13 +2,21 @@ version: "3"
 services:
     db:
         volumes:
-            - .:/code
+            #Uncomment for persistance\
+            #- my-datavolume:/var/lib/mysql
+
         ports:
             - "3310:3306"
+
+        #volumes:
+        #      - my-datavolume:/var/lib/mysql
         image: mysql
         environment:
-                MYSQL_USER: root
-                MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+                MYSQL_DATABASE: aopblog
+                #In the real world it's good idea to store the password and the username in file on the host and bind them with postfix _FILE
+                MYSQL_ROOT_PASSWORD: aopblog
+                MYSQL_PASSWORD: aopblog
+                MYSQL_USER: aopblog
         networks:
             net:
                 aliases:
@@ -28,7 +36,7 @@ services:
     web:
         image: nginx:latest
         ports:
-            - "127.0.0.1:8097:80"
+            - "8097:80"
         depends_on:
             - db
             - php
@@ -43,7 +51,7 @@ services:
     smtp:
         image: mwader/postfix-relay
         environment:
-           - POSTFIX_myhostname=aop-blog.ru
+           - POSTFIX_myhostname=aop-blog.com
         networks:
             net:
                 aliases:
