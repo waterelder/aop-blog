@@ -1,0 +1,45 @@
+#!/bin/bash
+cmd='php bin/console'
+
+# create necessary dirs
+# and then set proper rights for created dirs
+directories=(var/cache var/logs var/sessions web/uploads)
+USER=$(whoami)
+APACHE_USER=$(ps axho user,comm|grep -E "httpd|apache"|uniq|grep -v "root"|awk 'END {print $1}')
+createdir() {
+    mkdir -p $1
+    echo "- $1 has been created"
+}
+chcache () {
+    sudo chmod +a "$USER allow delete,write,append,file_inherit,directory_inherit" $1
+    sudo chmod +a "$APACHE_USER allow delete,write,append,file_inherit,directory_inherit" $1
+    echo "- $1 has been properly chmod'ed for $USER and $APACHE_USER"
+}
+for directory in "${directories[@]}"; do
+    if [ ! -d $directory ]; then
+        createdir $directory        
+    fi
+    if [ -d $directory ]; then 
+        chcache $directory
+    fi
+done
+
+
+# composer stuff
+COMPOSER_BIN=composer
+command -v $COMPOSER_BIN >/dev/null 2>&1 || {
+    echo "system wide composer not found; installing local"
+    curl -s https://getcomposer.org/installer | php
+    COMPOSER_BIN="php composer.phar"
+}
+$COMPOSER_BIN install
+echo "- composer dependencies installed"
+$COMPOSER_BIN dump-autoload --optimize
+echo "- composer autoload optimized"
+$COMPOSER_BIN run-script build-parameters
+
+# databases stuff
+$cmd doctrine:database:drop --force --quiet
+$cmd doctrine:database:create
+$cmd doctrine:migrations:migrate --no-interaction
+$cmd doctrine:fixtures:load --no-interaction

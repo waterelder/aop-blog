@@ -1,4 +1,10 @@
-aopblog
+Aop Blog
 =======
 
-A Symfony project created on May 22, 2017, 6:21 pm.
+AOP demo
+
+###Setup
+```
+git clone https://github.com/waterelder/aop-blog.git
+bin/setup_linux 
+```
