@@ -1,7 +1,7 @@
 version: "3"
 services:
     db:
-        volumes:
+        #volumes:
             #Uncomment for persistance\
             #- my-datavolume:/var/lib/mysql
 
@@ -12,11 +12,11 @@ services:
         #      - my-datavolume:/var/lib/mysql
         image: mysql
         environment:
-                MYSQL_DATABASE: aopblog
-                #In the real world it's good idea to store the password and the username in file on the host and bind them with postfix _FILE
-                MYSQL_ROOT_PASSWORD: aopblog
-                MYSQL_PASSWORD: aopblog
-                MYSQL_USER: aopblog
+            MYSQL_DATABASE: aopblog
+            #In the real world it's good idea to store the password and the username in file on the host and bind them with postfix _FILE
+            MYSQL_ROOT_PASSWORD: aopblog
+            MYSQL_PASSWORD: aopblog
+            MYSQL_USER: aopblog
         networks:
             net:
                 aliases:

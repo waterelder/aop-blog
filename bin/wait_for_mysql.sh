@@ -9,6 +9,7 @@ args=(
 	-h $host
 	-u "root"
 	-D "sys"
+	-paopblog
 	--silent
 )
 
