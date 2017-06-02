@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lex
- * Date: 31.05.17
- * Time: 15:25
- */
 
 namespace AppBundle\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
