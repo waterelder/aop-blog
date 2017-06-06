@@ -10,7 +10,6 @@ class SecurityController extends Controller
 {
     /**
      * @Route("/login", name="login")
-     *
      * @return Response
      */
     public function loginAction()
@@ -31,7 +30,7 @@ class SecurityController extends Controller
      */
     public function loginCheckAction()
     {
-        return new Response('Hello');
+
     }
 
     /**
@@ -39,6 +38,6 @@ class SecurityController extends Controller
      */
     public function logoutAction()
     {
-        return new Response('Hello');
+
     }
 }
