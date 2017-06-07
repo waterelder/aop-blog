@@ -10,6 +10,9 @@ function post_deploy {
     run mkdir -p var/cache
     run mkdir -p var/logs
     run mkdir -p web/uploads
+    if [ ! -f /code/composer.phar ]; then
+            run curl -s https://getcomposer.org/installer | php
+    fi
     run cp app/config/parameters_docker.yml app/config/parameters.yml
     run php bin/console --env=test doctrine:database:create --if-not-exists
     run php composer.phar install  --optimize-autoloader
