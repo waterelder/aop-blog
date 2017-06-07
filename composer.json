@@ -45,7 +45,6 @@
     "scripts": {
         "symfony-scripts": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
@@ -55,6 +54,9 @@
         ],
         "post-update-cmd": [
             "@symfony-scripts"
+        ],
+        "clear-cache": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache"
         ],
         "build-parameters": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
