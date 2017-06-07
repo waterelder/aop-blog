@@ -37,7 +37,7 @@ echo "- composer dependencies installed"
 $COMPOSER_BIN dump-autoload --optimize
 echo "- composer autoload optimized"
 $COMPOSER_BIN run-script build-parameters
-
+$COMPOSER_BIN run-script prepareDeploymentTarget
 # databases stuff
 $cmd doctrine:database:drop --force --quiet
 $cmd doctrine:database:create

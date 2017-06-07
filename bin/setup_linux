@@ -40,7 +40,7 @@ command -v $COMPOSER_BIN >/dev/null 2>&1 || {
 $COMPOSER_BIN install
 echo "- composer dependencies installed"
 $COMPOSER_BIN run-script build-parameters
-
+$COMPOSER_BIN run-script prepareDeploymentTarget
 # databases stuff
 $cmd doctrine:database:drop --force --quiet
 $cmd doctrine:database:create
