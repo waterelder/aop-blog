@@ -56,7 +56,7 @@ body .demo-blog {
 }
 
 .demo-blog.mdl-layout .mdl-layout__content {
-    padding-top: 180px;
+    padding-top: 150px;
     position: relative;
     -webkit-overflow-scrolling: touch;
 }
@@ -581,4 +581,8 @@ nav {
 
 .demo-blog--blogpost .comments .comment > .comment__actions {
     margin-top: 0;
+}
+
+.register-card {
+    width: 350px;
 }
