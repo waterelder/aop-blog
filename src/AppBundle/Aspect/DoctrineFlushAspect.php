@@ -5,6 +5,7 @@ namespace AppBundle\Aspect;
 use Doctrine\ORM\EntityManager;
 use Go\Aop\Aspect;
 use Go\Lang\Annotation\After;
+use Go\Lang\Annotation\Around;
 use Go\Aop\Intercept\MethodInvocation;
 
 class DoctrineFlushAspect implements Aspect
@@ -54,14 +55,16 @@ class DoctrineFlushAspect implements Aspect
     /**
      *
      * @param MethodInvocation $invocation
-     * @After("execution(public AppBundle\Controller\*->*Action(*))")
+     * @Around("execution(public AppBundle\Controller\*->*Action(*))", order = 1)
+     * @return mixed
      */
     public function commitTransaction(MethodInvocation $invocation)
     {
-
+        $data = $invocation->proceed();
         if ($this->isNeedFlush) {
             $this->em->flush();
         }
+        return $data;
     }
 
 }

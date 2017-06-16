@@ -16,7 +16,7 @@ class DefaultController extends BaseController
      * @return Response
      * @Logable
      */
-    public function showAction(Request $request)
+    public function showAction()
     {
         $posts = $this->getEm()->getRepository('AppBundle:Post')->findAll();
         return $this->render('default/index.html.twig', array('posts' => $posts));

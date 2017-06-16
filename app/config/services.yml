@@ -5,6 +5,12 @@ services:
         tags:
             - { name: goaop.aspect }
 
+    aspect.rest:
+        class: AppBundle\Aspect\RestActionAspect
+        arguments: ["@jms_serializer"]
+        tags:
+            - { name: goaop.aspect }
+
     aspect.security:
         class: AppBundle\Aspect\SecurityAspect
         arguments: ["@security.authorization_checker"]
