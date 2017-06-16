@@ -36,7 +36,7 @@ class RestActionAspect implements Aspect
      * @return Response
      */
     public function serializer(MethodInvocation $invocation)
-    {   echo("ser");
+    {
         $args = $invocation->getArguments();
         if (count($args) > 0) {
             $invocation->setArguments([$args[0], json_decode($args[0]->getContent(), true)]);
