@@ -18,6 +18,10 @@ class LoggingAspect implements Aspect
      */
     private $logger;
 
+    /**
+     * LoggingAspect constructor.
+     * @param LoggerInterface $logger
+     */
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
@@ -30,7 +34,9 @@ class LoggingAspect implements Aspect
      */
     public function beforeMethod(MethodInvocation $invocation)
     {
-        $this->logger->info($invocation, $invocation->getArguments());
+
+        $class = $this->getClass($invocation);
+        $this->logger->info("Executing Before " . $class . '->' . $invocation->getMethod()->name, $invocation->getArguments());
     }
 
     /**
@@ -40,6 +46,18 @@ class LoggingAspect implements Aspect
      */
     public function afterMethod(MethodInvocation $invocation)
     {
-        $this->logger->info($invocation, $invocation->getArguments());
+        $class = $this->getClass($invocation);
+        $this->logger->info("Executing Afters" . $class . '->' . $invocation->getMethod()->name, $invocation->getArguments());
+    }
+
+    /**
+     * @param MethodInvocation $invocation
+     * @return object|string
+     */
+    private function getClass(MethodInvocation $invocation)
+    {
+        $obj = $invocation->getThis();
+        $class = $obj === (object)$obj ? get_class($obj) : $obj;
+        return $class;
     }
 }
