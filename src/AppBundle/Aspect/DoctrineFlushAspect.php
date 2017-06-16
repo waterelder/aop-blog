@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Go\Aop\Aspect;
 use Go\Lang\Annotation\After;
 use Go\Aop\Intercept\MethodInvocation;
-///Not working!Не цепляется за EntityManager
+
 class DoctrineFlushAspect implements Aspect
 {
     /**
@@ -32,7 +32,7 @@ class DoctrineFlushAspect implements Aspect
     /**
      *
      * @param MethodInvocation $invocation
-     * @After("execution(public Doctrine\ORM\EntityManager->persist(*))")
+     * @After("execution(public AppBundle\Repository\*Repository->save(*))")
      */
     public function detectPersist(MethodInvocation $invocation)
     {
@@ -43,7 +43,7 @@ class DoctrineFlushAspect implements Aspect
     /**
      *
      * @param MethodInvocation $invocation
-     * @After("execution(public Doctrine\ORM\EntityManager->flush(*))")
+     * @After("execution(public AppBundle\Repository\*Repository->flush(*))")
      */
     public function detectFlush(MethodInvocation $invocation)
     {

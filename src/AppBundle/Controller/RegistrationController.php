@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RegistrationController extends Controller
+class RegistrationController extends BaseController
 {
     /**
      * @Route("/register", name="register")
@@ -27,10 +27,7 @@ class RegistrationController extends Controller
             $password = $encoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setRole('ROLE_USER');
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
+            $this->getEm()->getRepository('AppBundle:User')->save($user);
             return $this->redirectToRoute('main');
         }
 

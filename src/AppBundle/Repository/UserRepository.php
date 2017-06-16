@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  * Class UserRepository
  * @package AppBundle\Repository
  */
-class UserRepository extends EntityRepository implements UserProviderInterface
+class UserRepository extends AOPDrivenRepository implements UserProviderInterface
 {
     /**
      * {@inheritdoc}

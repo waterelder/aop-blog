@@ -24,12 +24,14 @@ class PostController extends BaseController
      */
     public function showPost($id)
     {
-        $post = $this->getEm()->getRepository('AppBundle:Post')->findOneById(['id' => $id]);
+
+        $postRepository = $this->getEm()->getRepository('AppBundle:Post');
+        $post = $postRepository->findOneById(['id' => $id]);
         if (!$post) {
             throw new NotFoundHttpException();
         }
-        $next = $this->getEm()->getRepository('AppBundle:Post')->getNext($post->getId());
-        $prev = $this->getEm()->getRepository('AppBundle:Post')->getPrev($post->getId());
+        $next = $postRepository->getNext($post->getId());
+        $prev = $postRepository->getPrev($post->getId());
 
         return $this->render('default/show_post.html.twig', ['post' => $post, 'next' => $next, 'prev' => $prev]);
 
@@ -49,9 +51,7 @@ class PostController extends BaseController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
-            $entityManager->flush();
+            $this->getEm()->getRepository('AppBundle:Comment')->save($comment);
         }
 
         return $this->redirectToRoute('show_post', ['id' => $post->getId()]);
@@ -86,9 +86,8 @@ class PostController extends BaseController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($post);
-            $entityManager->flush();
+            $this->getEm()->getRepository('AppBundle:Post')->save($post);
+            $this->getEm()->getRepository('AppBundle:Post')->flush();
             return $this->redirectToRoute('show_post', ['id' => $post->getId()]);
         }
 

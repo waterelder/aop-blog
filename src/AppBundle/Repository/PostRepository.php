@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityRepository;
  * Class PostRepository
  * @package AppBundle\Repository
  */
-class PostRepository extends EntityRepository
+class PostRepository extends AOPDrivenRepository
 {
     /**
      * @return ArrayCollection|array
