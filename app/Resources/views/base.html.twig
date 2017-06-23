@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Blog! {% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/material.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% endblock %}
+    <style>
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+    </style>
+</head>
+<body>
+<div class="demo-blog mdl-layout mdl-js-layout has-drawer is-upgraded">
+    <main class="mdl-layout__content">
+        {% block header %} {% endblock %}
+        {% block body %} {% endblock %}
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">
+                <button class="mdl-mini-footer--social-btn social-btn social-btn__twitter">
+                    <span class="visuallyhidden">Twitter</span>
+                </button>
+                <button class="mdl-mini-footer--social-btn social-btn social-btn__blogger">
+                    <span class="visuallyhidden">Facebook</span>
+                </button>
+                <button class="mdl-mini-footer--social-btn social-btn social-btn__gplus">
+                    <span class="visuallyhidden">Google Plus</span>
+                </button>
+            </div>
+            <div class="mdl-mini-footer--right-section">
+                <button class="mdl-mini-footer--social-btn social-btn__share">
+                    <i class="material-icons" role="presentation">share</i>
+                    <span class="visuallyhidden">share</span>
+                </button>
+            </div>
+        </footer>
+    </main>
+    <div class="mdl-layout__obfuscator"></div>
+</div>
+{% block javascripts %}
+    <script src="{{ asset('js/material.min.js') }}"></script>
+{% endblock %}
+</body>
 </html>

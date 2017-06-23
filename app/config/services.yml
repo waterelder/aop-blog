@@ -1,6 +1,38 @@
 services:
-    logging.aspect:
+    aspect.logging:
         class: AppBundle\Aspect\LoggingAspect
         arguments: ["@logger"]
         tags:
             - { name: goaop.aspect }
+
+    aspect.rest:
+        class: AppBundle\Aspect\RestActionAspect
+        arguments: ["@jms_serializer"]
+        tags:
+            - { name: goaop.aspect }
+
+    aspect.security:
+        class: AppBundle\Aspect\SecurityAspect
+        arguments: ["@security.authorization_checker"]
+        tags:
+           - { name: goaop.aspect }
+
+    aspect.doctrine_flush:
+        class: AppBundle\Aspect\DoctrineFlushAspect
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+           - { name: goaop.aspect }
+
+    app.form_login_authenticator:
+        class: AppBundle\Security\FormLoginAuthenticator
+        arguments: ["@router", "@security.password_encoder"]
+
+    markdown:
+        class: AppBundle\Utils\Markdown
+
+    app.twig.md2html:
+         public:    false
+         class:     AppBundle\Twig\MarkdownToHtmlExtension
+         arguments: ['@markdown']
+         tags:
+             - { name: twig.extension }

@@ -1,0 +1,89 @@
+{% extends 'template/nav_header_base.html.twig' %}
+
+{% block body %}
+    <div class="demo-blog--blogpost">
+        <div class="demo-blog__posts  mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__media mdl-color-text--grey-50">
+                    <h3>{{ post.title }}</h3>
+                </div>
+                <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+                    <div class="minilogo"></div>
+                    <div>
+                        <strong>{{ post.author.name }}</strong>
+                        <span>{{ post.publishedAt|ago }}</span>
+                    </div>
+                    <div class="section-spacer"></div>
+                    <div class="meta__favorites">
+                        <i class="material-icons" role="presentation">favorite</i>
+                        <span class="visuallyhidden">favorites</span>
+                    </div>
+                    <div>
+                        <i class="material-icons" role="presentation">bookmark</i>
+                        <span class="visuallyhidden">bookmark</span>
+                    </div>
+                    <div>
+                        <i class="material-icons" role="presentation">share</i>
+                        <span class="visuallyhidden">share</span>
+                    </div>
+                </div>
+                <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+                    {{ post.content | md2html }}
+                </div>
+                <div class="mdl-color-text--primary-contrast mdl-card__supporting-text comments">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {{ render(controller('AppBundle:Post:commentForm', {'id': post.id})) }}
+                    {% endif %}
+                    {% for comment in post.comments %}
+                        <div class="comment mdl-color-text--grey-700">
+                            <header class="comment__header">
+                                <img src="{{ asset('img/co1.jpg') }}" class="comment__avatar">
+                                <div class="comment__author">
+                                    <strong>{{ comment.author.name }}</strong>
+                                    <span>{{ comment.publishedAt|ago }}</span>
+                                </div>
+                            </header>
+                            <div class="comment__text">
+                                {{ comment.content|md2html }}
+                            </div>
+                            <nav class="comment__actions">
+                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                                    <i class="material-icons" role="presentation">thumb_up</i><span
+                                            class="visuallyhidden">like comment</span>
+                                </button>
+                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                                    <i class="material-icons" role="presentation">thumb_down</i><span
+                                            class="visuallyhidden">dislike comment</span>
+                                </button>
+                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                                    <i class="material-icons" role="presentation">share</i><span class="visuallyhidden">share comment</span>
+                                </button>
+                            </nav>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <nav class="demo-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+                {% if next is not null %}
+                    <a href="{{ path('show_post', {'id':next.id}) }}" class="demo-nav__button">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900"
+                                role="presentation">
+                            <i class="material-icons">arrow_back</i>
+                        </button>
+                        Newer
+                    </a>
+                {% endif %}
+                <div class="section-spacer"></div>
+                {% if prev is not null %}
+                    <a href="{{ path('show_post', {'id':prev.id}) }}" class="demo-nav__button">
+                        Older
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900"
+                                role="presentation">
+                            <i class="material-icons">arrow_forward</i>
+                        </button>
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+{% endblock %}

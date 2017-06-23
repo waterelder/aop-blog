@@ -1,0 +1,52 @@
+{% extends 'template/nav_header_base.html.twig' %}
+
+{% block body %}
+    <div class="mdl-grid">
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-cell mdl-cell mdl-cell--3-col">
+            <div class="mdl-card mdl-shadow--2dp">
+                <div style="margin-top: 15%">
+                    <div class="mdl-cell mdl-cell--4-offset">
+                        <div class="mdl-card__title">
+                            <h4 class="mdl-card__title-text">Login</h4>
+                        </div>
+                    </div>
+                    <form class="form-horizontal" role="form" method="POST"
+                          action="{{ path('security_login_check') }}">
+                        <div class=" mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+                            {% if error %}
+                                <div class="red">
+                                    {{ error.messageKey|trans(error.messageData) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" name="_email" type="email" id="login_email">
+                                <label class="mdl-textfield__label" for="login_email">Email</label>
+                            </div>
+                        </div>
+
+
+                        <div class=" mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" name="_password" type="password" id="login_pwd">
+                                <label class="mdl-textfield__label" for="login_pwd">Password</label>
+                            </div>
+                        </div>
+
+                        <div class="mdl-grid">
+                            <div class="mdl-layout-spacer"></div>
+                            <div class=" mdl-cell mdl-cell--6-col">
+                                <button type="submit" class="mdl-button mdl-js-button mdl-button--accent"><i
+                                            class="material-icons">send</i>SIGN IN
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mdl-layout-spacer"></div>
+    </div>
+{% endblock %}

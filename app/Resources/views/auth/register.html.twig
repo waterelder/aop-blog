@@ -1,0 +1,46 @@
+{% extends 'template/nav_header_base.html.twig'%}
+
+{% block body %}
+    <div class="mdl-grid">
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-cell mdl-cell--3-col">
+            <div class="mdl-card register-card mdl-shadow--2dp">
+                <div class="mdl-grid center-items">
+                    <div class="mdl-cell mdl-cell--5-col">
+                        <div class="mdl-card__title">
+                            <h4 class="mdl-card__title-text">Register</h4>
+                        </div>
+                    </div>
+                    <div class="mdl-grid center-items">
+                        <div class="mdl-cell mdl-cell--10-col">
+                            {{ form_start(form) }}
+                            <div id='reg_email' class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                {{ form_row(form.name, {'attr': {'class': 'mdl-textfield__input'}, 'label_attr':{'class':'mdl-textfield__label'}}) }}
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                {{ form_row(form.email, {'attr': {'class': 'mdl-textfield__input'}, 'label_attr':{'class':'mdl-textfield__label'}}) }}
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                {{ form_row(form.plainPassword.first, {'attr': {'class': 'mdl-textfield__input'}, 'label_attr':{'class':'mdl-textfield__label'}}) }}
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                {{ form_row(form.plainPassword.second, {'attr': {'class': 'mdl-textfield__input'}, 'label_attr':{'class':'mdl-textfield__label'}}) }}
+                            </div>
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--5-offset mdl-cell--7-col">
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--accent"><i
+                                                class="material-icons">send</i>SIGN UP
+                                    </button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </div>
+        <div class="mdl-layout-spacer"></div>
+    </div>
+{% endblock %}

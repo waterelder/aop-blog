@@ -4,10 +4,8 @@ services:
         #volumes:
             #Uncomment for persistance\
             #- my-datavolume:/var/lib/mysql
-
         ports:
-            - "3310:3306"
-
+            - "3311:3306"
         #volumes:
         #      - my-datavolume:/var/lib/mysql
         image: mysql
@@ -27,7 +25,7 @@ services:
             - db
         volumes:
             - .:/code
-        command: ["/code/bin/wait_for_mysql.sh", "db", "cd /code/ && ./bin/docker_afterdeploy.sh prod && php-fpm"]
+        command: ["/code/bin/wait_for_mysql.sh", "db", "cd /code/ && ./bin/docker_afterdeploy.sh test && php-fpm"]
         tty: true
         networks:
             net:
@@ -47,7 +45,6 @@ services:
             net:
                 aliases:
                     - web
-
     smtp:
         image: mwader/postfix-relay
         environment:
@@ -56,7 +53,6 @@ services:
             net:
                 aliases:
                     - smtp
-
 networks:
     net:
 
