@@ -30,9 +30,12 @@ class RestController extends BaseController
     }
 
     /**
-     * @Route("/", name="api_register")
+     * @Route("/register", name="api_register")
      * @Method("POST")
      * @Rest
+     * @param Request $request
+     * @param User $user
+     * @return User
      */
     public function registerAction(Request $request, $user = null)
     {
