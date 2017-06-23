@@ -41,6 +41,7 @@ class RestActionAspect implements Aspect
         if (count($args) > 0) {
             $invocation->setArguments([$args[0], json_decode($args[0]->getContent(), true)]);
         }
-        return new Response($this->serializer->serialize($invocation->proceed(), 'json'));
+        $returnData = $invocation->proceed();
+        return new Response($this->serializer->serialize($returnData, 'json'));
     }
 }
