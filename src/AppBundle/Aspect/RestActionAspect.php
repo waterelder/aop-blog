@@ -32,7 +32,7 @@ class RestActionAspect implements Aspect
     /**
      *
      * @param MethodInvocation $invocation
-     * @Around("@execution(AppBundle\Annotation\Rest)", order=2)
+     * @Around("@execution(AppBundle\Annotation\Rest)", order=1)
      * @return Response
      */
     public function serializer(MethodInvocation $invocation)
@@ -42,6 +42,8 @@ class RestActionAspect implements Aspect
             $invocation->setArguments([$args[0], json_decode($args[0]->getContent(), true)]);
         }
         $returnData = $invocation->proceed();
-        return new Response($this->serializer->serialize($returnData, 'json'));
+        $response = new Response($this->serializer->serialize($returnData, 'json'));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 }

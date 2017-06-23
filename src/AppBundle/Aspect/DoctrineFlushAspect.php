@@ -55,7 +55,7 @@ class DoctrineFlushAspect implements Aspect
     /**
      *
      * @param MethodInvocation $invocation
-     * @Around("execution(public AppBundle\Controller\*->*Action(*))", order = 1)
+     * @Around("execution(public AppBundle\Controller\*->*Action(*))", order = 1000)
      * @return mixed
      */
     public function commitTransaction(MethodInvocation $invocation)
